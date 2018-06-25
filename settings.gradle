@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url "https://build-inera.nordicmedtest.se/nexus/repository/releases/" }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'signaturevalidator'
+
+include ':web'
+
+project(':web').name = 'signaturevalidator-web'
