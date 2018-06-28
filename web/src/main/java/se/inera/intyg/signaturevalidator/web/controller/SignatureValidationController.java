@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.inera.intyg.infra.xmldsig.model.CertificateInfo;
 import se.inera.intyg.infra.xmldsig.model.ValidationResponse;
+import se.inera.intyg.signaturevalidator.monitoring.PrometheusTimeMethod;
 import se.inera.intyg.signaturevalidator.service.SignatureValidationService;
 import se.inera.intyg.signaturevalidator.web.controller.dto.SignatureValidationResponse;
 import se.inera.intyg.signaturevalidator.web.controller.dto.ValidationResponseWithSignature;
@@ -41,6 +42,7 @@ public class SignatureValidationController {
     @Autowired
     private SignatureValidationService signatureValidationService;
 
+    @PrometheusTimeMethod(name = "validate_signature_duration_seconds", help = "Call to validate signature")
     @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignatureValidationResponse> validateSignature(@RequestBody String xml) {
         Map<String, ValidationResponse> validationMap = signatureValidationService.validateSignature(xml);
